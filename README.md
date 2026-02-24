@@ -6,4 +6,4 @@
 Test your changes in multiple browsers (Chrome,Firefox,Safari).
  5.Submit a Pull Request (PR) Push your changes to your fork:git push origin feature/your-feature-name
  Open a Pull Request against the main branch of the original AgriMart repository.
- Describe your changes clearly in the PR template
+ Describe your changes clearly in the PR template.
