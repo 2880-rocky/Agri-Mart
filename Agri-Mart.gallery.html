@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agri-Mart | Farm Machinery Gallery</title>
+  <style>
+    /* ----- COLOR VARIABLES (your scheme) ----- */
+    :root {
+      --navbar-bg: #1B5E20;
+      --navbar-text: #FFFFFF;
+      --navbar-hover: #F57C00;
+
+      --footer-bg: #212121;
+      --footer-text: #F5F5F5;
+      --footer-link-hover: #F57C00;
+
+      --page-bg: #F5F5F5;
+      --card-bg: #FFFFFF;
+
+      --btn-primary-bg: #F57C00;
+      --btn-primary-text: #FFFFFF;
+      --btn-primary-hover: #E65100;
+
+      --btn-secondary-bg: #2E7D32;
+      --btn-secondary-text: #FFFFFF;
+      --btn-secondary-hover: #1B5E20;
+    }
+
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--page-bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ----- NAVBAR ----- */
+    .navbar {
+      background-color: var(--navbar-bg);
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--navbar-text);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--navbar-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--navbar-hover);
+    }
+
+    /* ----- MAIN CONTENT ----- */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+    }
+
+    h1 {
+      color: #1B5E20;
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+    }
+
+    .subhead {
+      color: #424242;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* ----- FILTER BUTTONS (using secondary style) ----- */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      background-color: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .filter-btn:hover {
+      background-color: var(--btn-secondary-hover);
+    }
+
+    .filter-btn.active {
+      background-color: var(--btn-primary-bg);
+      box-shadow: 0 4px 8px rgba(245, 124, 0, 0.3);
+    }
+
+    /* ----- PRODUCT GRID ----- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background-color: #e0e0e0;
+      display: block;
+    }
+
+    .card-content {
+      padding: 1.5rem 1.2rem 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1B3C1B;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #2E7D32;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-specs {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.5;
+      border-top: 1px dashed #ccc;
+      padding-top: 0.8rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      flex: 1 0 auto;
+      text-align: center;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-primary {
+      background-color: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--btn-primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--btn-secondary-hover);
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 2rem 2rem 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--footer-text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--footer-link-hover);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* ----- RESPONSIVE TWEAKS ----- */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+      .nav-links {
+        gap: 1.5rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">🌾 Agri-Mart</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#" class="active">Gallery</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <h1>Farm Machinery Gallery</h1>
+    <div class="subhead">High‑quality equipment for modern farming – view specs and prices</div>
+
+    <!-- filter buttons (javascript will add active class) -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="tractor">Tractors</button>
+      <button class="filter-btn" data-filter="harvester">Harvesters</button>
+      <button class="filter-btn" data-filter="tillage">Tillage</button>
+    </div>
+
+    <!-- gallery grid populated by javascript (or static, but we'll use static with data attributes) -->
+    <div class="gallery" id="gallery"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <span>© 2026 Agri-Mart Equipment</span>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="copyright">
+      Empowering farmers with reliable machinery
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // ----- PRODUCT DATA (machinery with images, prices, specs) -----
+      const products = [
+        {
+          name: "Mahindra 475 DI",
+          category: "tractor",
+          price: "$25,000",
+          specs: "75 HP · 2023 model · 2WD",
+          image: "pexels-acecranesindia-32945048.jpg",
+          alt: "Mahindra tractor"
+        },
+        {
+          name: "John Deere S780",
+          category: "harvester",
+          price: "$350,000",
+          specs: "300 HP · 2024 · 40ft header",
+          image: "pexels-miken-33793649.jpg",
+          alt: "John Deere combine harvester"
+        },
+        {
+          name: "Kubota Disc Plow",
+          category: "tillage",
+          price: "$4,500",
+          specs: "4-bottom · 20'' discs · 3‑point",
+          image: "pexels-mirkofabian-12495810.jpg",
+          alt: "Kubota disc plow"
+        },
+        {
+          name: "New Holland SW250",
+          category: "harvester",
+          price: "$45,000",
+          specs: "16ft swather · 120 HP · turbo",
+          image: "pexels-frank-nowicki-545360787-16623692.jpg",
+          alt: "New Holland swather"
+        },
+        {
+          name: "Massey Ferguson 1840",
+          category: "harvester",
+          price: "$30,000",
+          specs: "Round baler · 5x6 bales · net wrap",
+          image: "pexels-raymond-eichelberger-3213541-9782917.jpg",
+          alt: "Massey Ferguson baler"
+        },
+        {
+          name: "Case IH Tiger-Mate",
+          category: "tillage",
+          price: "$12,000",
+          specs: "24ft cultivator · 150 HP · folding",
+          image: "pexels-wolfgang-weiser-467045605-23879282.jpg",
+          alt: "Case IH field cultivator"
+        }
+      ];
+
+      const gallery = document.getElementById('gallery');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+
+      // render products based on filter
+      function renderGallery(filter = 'all') {
+        let html = '';
+        products.forEach(prod => {
+          if (filter === 'all' || prod.category === filter) {
+            html += `
+              <div class="card" data-category="${prod.category}">
+                <img class="card-img" src="${prod.image}" alt="${prod.alt}" loading="lazy">
+                <div class="card-content">
+                  <div class="card-title">${prod.name}</div>
+                  <div class="card-price">${prod.price}</div>
+                  <div class="card-specs">${prod.specs}</div>
+                  <div class="card-actions">
+                    <button class="btn btn-primary buy-btn">Buy Now</button>
+                    <button class="btn btn-secondary details-btn">View Details</button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        });
+        gallery.innerHTML = html;
+
+        // attach event listeners to the new buttons
+        document.querySelectorAll('.buy-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            alert('🛒 Added to cart! (demo)');
+          });
+        });
+        document.querySelectorAll('.details-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            alert('📋 View details – more specifications would appear here.');
+          });
+        });
+      }
+
+      // initial render
+      renderGallery('all');
+
+      // filter button active state + re-render
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // update active class
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filterValue = btn.getAttribute('data-filter');
+          renderGallery(filterValue);
+        });
+      });
+
+      
+      
+    })();
+  </script>
+</body>
+</html>
