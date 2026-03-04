@@ -2,7 +2,7 @@
 const products = [
     {
         id: 1,
-        name: "Eco-Harvest Pro Tractor",
+        name: "Eco-Harvest Pro Tractor 2.0",
         price: 4500000,
         image: "img/tractor1.jpeg",
         description: "A high-performance, fuel-efficient tractor designed for large-scale farming. Features advanced GPS navigation and ergonomic controls."
